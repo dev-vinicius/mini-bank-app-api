@@ -21,7 +21,7 @@ namespace MiniBankApp.Application.UseCases.Transactions.Credit
             var account = _repository.GetAccount(accountId);
 
             if (account == null)
-                throw new ErrorOnNotFoundRecord(ResourceErrorMessages.ACCOUNT_NOT_FOUND);
+                throw new ErrorOnNotFoundRecordException(ResourceErrorMessages.ACCOUNT_NOT_FOUND);
 
             var transaction = new Transaction
             { 

@@ -1,9 +1,9 @@
 ﻿namespace MiniBankApp.Exception.ExceptionBase
 {
-    public class ErrorOnNotFoundRecord : MiniBankAppException
+    public class ErrorOnTransactionException : MiniBankAppException
     {
         public override string Message { get; }
-        public ErrorOnNotFoundRecord(string message) 
+        public ErrorOnTransactionException(string message)
         {
             Message = message;
         }

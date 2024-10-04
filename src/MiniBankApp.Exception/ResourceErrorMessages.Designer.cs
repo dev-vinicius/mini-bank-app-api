@@ -88,6 +88,15 @@ namespace MiniBankApp.Exception {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Você não possui saldo suficiente para realizar esta transação.
+        /// </summary>
+        public static string TRANSACTION_INSUFICIENT_BALANCE_FOR_DEBIT {
+            get {
+                return ResourceManager.GetString("TRANSACTION_INSUFICIENT_BALANCE_FOR_DEBIT", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to A Conta informada é inválida.
         /// </summary>
         public static string TRANSACTION_ORIGIN_ACCOUNT_INVALID {
