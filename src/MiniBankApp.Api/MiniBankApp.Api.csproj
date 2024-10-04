@@ -11,4 +11,11 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MiniBankApp.Application\MiniBankApp.Application.csproj" />
+    <ProjectReference Include="..\MiniBankApp.Communication\MiniBankApp.Communication.csproj" />
+    <ProjectReference Include="..\MiniBankApp.Exception\MiniBankApp.Exception.csproj" />
+    <ProjectReference Include="..\MiniBankApp.Infrastructure\MiniBankApp.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>

@@ -5,25 +5,28 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{AA8EA455-E86F-40F2-9BA9-39961A671523}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniBankApp.Api", "src\MiniBankApp.Api\MiniBankApp.Api.csproj", "{85AB7314-F1E4-4842-BB8D-4D2BA1EA5CC2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniBankApp.Api", "src\MiniBankApp.Api\MiniBankApp.Api.csproj", "{85AB7314-F1E4-4842-BB8D-4D2BA1EA5CC2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniBankApp.Application", "src\MiniBankApp.Application\MiniBankApp.Application.csproj", "{F28430FE-89FC-4C1A-8A9A-3F2555BA60C9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniBankApp.Application", "src\MiniBankApp.Application\MiniBankApp.Application.csproj", "{F28430FE-89FC-4C1A-8A9A-3F2555BA60C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniBankApp.Communication", "src\MiniBankApp.Communication\MiniBankApp.Communication.csproj", "{CE935AAF-775F-4482-BA08-4E4CF6010398}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniBankApp.Communication", "src\MiniBankApp.Communication\MiniBankApp.Communication.csproj", "{CE935AAF-775F-4482-BA08-4E4CF6010398}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniBankApp.Domain", "src\MiniBankApp.Domain\MiniBankApp.Domain.csproj", "{78EEC8E5-4C9D-4BF5-B1BD-E2C91E28588A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniBankApp.Domain", "src\MiniBankApp.Domain\MiniBankApp.Domain.csproj", "{78EEC8E5-4C9D-4BF5-B1BD-E2C91E28588A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniBankApp.Exception", "src\MiniBankApp.Exception\MiniBankApp.Exception.csproj", "{C01936A5-6DA2-4721-88B3-1397FA619019}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniBankApp.Exception", "src\MiniBankApp.Exception\MiniBankApp.Exception.csproj", "{C01936A5-6DA2-4721-88B3-1397FA619019}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MiniBankApp.Infrastructure", "src\MiniBankApp.Infrastructure\MiniBankApp.Infrastructure.csproj", "{0C377701-D851-4D40-ACF8-01FF3FAC409A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniBankApp.Infrastructure", "src\MiniBankApp.Infrastructure\MiniBankApp.Infrastructure.csproj", "{0C377701-D851-4D40-ACF8-01FF3FAC409A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{83A3829B-EC23-49F6-9C6B-2F74EC1E635E}"
+	ProjectSection(SolutionItems) = preProject
+		create.sql = create.sql
+		docker-compose.yaml = docker-compose.yaml
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
-	EndGlobalSection
-	GlobalSection(SolutionProperties) = preSolution
-		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{85AB7314-F1E4-4842-BB8D-4D2BA1EA5CC2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -51,6 +54,9 @@ Global
 		{0C377701-D851-4D40-ACF8-01FF3FAC409A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0C377701-D851-4D40-ACF8-01FF3FAC409A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{85AB7314-F1E4-4842-BB8D-4D2BA1EA5CC2} = {AA8EA455-E86F-40F2-9BA9-39961A671523}
 		{F28430FE-89FC-4C1A-8A9A-3F2555BA60C9} = {AA8EA455-E86F-40F2-9BA9-39961A671523}
@@ -58,5 +64,8 @@ Global
 		{78EEC8E5-4C9D-4BF5-B1BD-E2C91E28588A} = {AA8EA455-E86F-40F2-9BA9-39961A671523}
 		{C01936A5-6DA2-4721-88B3-1397FA619019} = {AA8EA455-E86F-40F2-9BA9-39961A671523}
 		{0C377701-D851-4D40-ACF8-01FF3FAC409A} = {AA8EA455-E86F-40F2-9BA9-39961A671523}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {BA7EE1A3-7737-4118-ACBF-3EFCE166DDDB}
 	EndGlobalSection
 EndGlobal

@@ -1,7 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="11.10.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\MiniBankApp.Communication\MiniBankApp.Communication.csproj" />
+    <ProjectReference Include="..\MiniBankApp.Domain\MiniBankApp.Domain.csproj" />
+    <ProjectReference Include="..\MiniBankApp.Exception\MiniBankApp.Exception.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

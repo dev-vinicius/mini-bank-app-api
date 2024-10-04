@@ -1,15 +1,19 @@
+using MiniBankApp.Api.Extensions;
+using MiniBankApp.Api.Filters;
+using MiniBankApp.Infrastructure.Extensions;
+
 var builder = WebApplication.CreateBuilder(args);
-
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-var app = builder.Build();
+builder.AddConfiguration();
+builder.Services.AddMvc(options =>
+    options.Filters.Add(typeof(ExceptionFilter)));
 
-// Configure the HTTP request pipeline.
+builder.RegisterInfrastructureServices();
+
+var app = builder.Build();
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
@@ -17,9 +21,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
 
 app.Run();

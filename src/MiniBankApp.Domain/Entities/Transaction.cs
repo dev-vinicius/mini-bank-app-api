@@ -8,7 +8,10 @@ public class Transaction
     public int OriginAccountId { get; set; }
     public decimal Value { get; set; }
     public OperationType OperationType { get; set; }
-    public int DestinationAccountId { get; set; }
+    public int? DestinationAccountId { get; set; }
     public DateTime CreateDate { get; set; }
     public DateTime UpdateDate { get; set; }
+
+    public Account? OriginAccount { get; set; }
+    public Account? DestinationAccount { get; set; }
 }

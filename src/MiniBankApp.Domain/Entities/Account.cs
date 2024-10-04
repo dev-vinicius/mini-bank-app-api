@@ -7,4 +7,6 @@ public class Account
     public decimal Balance { get; set; }
     public DateTime CreateDate { get; set; }
     public DateTime UpdateDate { get; set; }
+
+    public List<Transaction> Transactions { get; set; } = [];
 }
