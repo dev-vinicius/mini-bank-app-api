@@ -4,7 +4,7 @@ using MiniBankApp.Domain.Entities;
 
 namespace MiniBankApp.Infrastructure.Mappings
 {
-    public class AccountMap : IEntityTypeConfiguration<Account>
+    internal class AccountMap : IEntityTypeConfiguration<Account>
     {
         public void Configure(EntityTypeBuilder<Account> builder)
         {

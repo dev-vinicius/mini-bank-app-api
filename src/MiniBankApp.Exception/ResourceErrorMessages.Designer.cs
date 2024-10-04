@@ -88,6 +88,24 @@ namespace MiniBankApp.Exception {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to A Conta informada é inválida.
+        /// </summary>
+        public static string TRANSACTION_ORIGIN_ACCOUNT_INVALID {
+            get {
+                return ResourceManager.GetString("TRANSACTION_ORIGIN_ACCOUNT_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to O Valor da transação deve ser maior que zero.
+        /// </summary>
+        public static string TRANSACTION_VALUE_INVALID {
+            get {
+                return ResourceManager.GetString("TRANSACTION_VALUE_INVALID", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Erro desconhecido.
         /// </summary>
         public static string UNKNOW_ERROR {

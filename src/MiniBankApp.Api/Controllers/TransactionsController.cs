@@ -1,4 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using MiniBankApp.Application.UseCases.Transactions.Credit;
+using MiniBankApp.Communication.Requests.Transaction;
 
 namespace MiniBankApp.Api.Controllers
 {
@@ -13,9 +15,13 @@ namespace MiniBankApp.Api.Controllers
         }
 
         [HttpPost("transaction-credit")]
-        public IActionResult TransactionCredit(int accountId)
+        public IActionResult TransactionCredit(int accountId, 
+            [FromBody] RequestTransactionCreditJson request, 
+            [FromServices] ITransactionCreditRepository repository)
         {
-            return Ok(new { id = accountId });
+            var useCase = new TransactionCreditUseCase(repository);
+            var result = useCase.Execute(accountId, request);
+            return Created(string.Empty, result);
         }
 
         [HttpPost("transaction-debit")]

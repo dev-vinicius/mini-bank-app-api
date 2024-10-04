@@ -16,10 +16,9 @@ namespace MiniBankApp.Application.UseCases.Accounts.GetById
         {
             var account = _repository.GetAccountById(id);
 
-            if (account == null)
-                throw new ErrorOnNotFoundRecord(ResourceErrorMessages.ACCOUNT_NOT_FOUND);
-
-            return new ResponseGetAccountByIdJson()
+            return account == null
+                ? throw new ErrorOnNotFoundRecord(ResourceErrorMessages.ACCOUNT_NOT_FOUND)
+                : new ResponseGetAccountByIdJson()
             {
                 Id = account.Id,
                 Name = account.Name,

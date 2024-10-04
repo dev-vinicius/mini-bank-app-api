@@ -1,12 +1,10 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.Extensions.Hosting;
 using MiniBankApp.Domain.Entities;
-using System.Reflection.Emit;
 
 namespace MiniBankApp.Infrastructure.Mappings
 {
-    public class TransactionMap : IEntityTypeConfiguration<Transaction>
+    internal class TransactionMap : IEntityTypeConfiguration<Transaction>
     {
         public void Configure(EntityTypeBuilder<Transaction> builder)
         {

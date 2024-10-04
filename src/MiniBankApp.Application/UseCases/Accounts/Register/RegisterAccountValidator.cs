@@ -4,7 +4,7 @@ using MiniBankApp.Exception;
 
 namespace MiniBankApp.Application.UseCases.Accounts.Register
 {
-    public class RegisterAccountValidator :AbstractValidator<RequestAccountRegisterJson>
+    public class RegisterAccountValidator : AbstractValidator<RequestAccountRegisterJson>
     {
         public RegisterAccountValidator()
         {

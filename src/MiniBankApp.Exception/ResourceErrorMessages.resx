@@ -129,4 +129,10 @@
   <data name="ACCOUNT_NOT_FOUND" xml:space="preserve">
     <value>A Conta solicitada não foi encontrada</value>
   </data>
+  <data name="TRANSACTION_ORIGIN_ACCOUNT_INVALID" xml:space="preserve">
+    <value>A Conta informada é inválida</value>
+  </data>
+  <data name="TRANSACTION_VALUE_INVALID" xml:space="preserve">
+    <value>O Valor da transação deve ser maior que zero</value>
+  </data>
 </root>
