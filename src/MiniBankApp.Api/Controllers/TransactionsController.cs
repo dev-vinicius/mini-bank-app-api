@@ -2,6 +2,7 @@
 using MiniBankApp.Application.UseCases.Transactions.Credit.Contracts;
 using MiniBankApp.Application.UseCases.Transactions.Debit.Contracts;
 using MiniBankApp.Application.UseCases.Transactions.History.Contracts;
+using MiniBankApp.Application.UseCases.Transactions.Transfer.Contracts;
 using MiniBankApp.Communication.Requests.Transaction;
 
 namespace MiniBankApp.Api.Controllers
@@ -37,9 +38,12 @@ namespace MiniBankApp.Api.Controllers
         }
 
         [HttpPost("transaction-transfer")]
-        public IActionResult TransactionTransfer(int accountId)
+        public IActionResult TransactionTransfer(int accountId,
+            [FromBody] RequestTransactionTransferJson request,
+            [FromServices] ITransactionTransferUseCase useCase)
         {
-            return Ok(new { id = accountId });
+            var result = useCase.Execute(accountId, request);
+            return Created(string.Empty, result);
         }
     }
 }

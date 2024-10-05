@@ -24,7 +24,7 @@ namespace MiniBankApp.Application.UseCases.Transactions.Debit
                 throw new ErrorOnNotFoundRecordException(ResourceErrorMessages.ACCOUNT_NOT_FOUND);
 
             if (account.Balance < request.Value)
-                throw new ErrorOnTransactionException(ResourceErrorMessages.TRANSACTION_INSUFICIENT_BALANCE_FOR_DEBIT);
+                throw new ErrorOnTransactionException(ResourceErrorMessages.TRANSACTION_INSUFICIENT_BALANCE);
 
             var transaction = new Transaction
             {

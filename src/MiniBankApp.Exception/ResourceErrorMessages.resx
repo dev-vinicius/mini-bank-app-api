@@ -135,7 +135,10 @@
   <data name="TRANSACTION_VALUE_INVALID" xml:space="preserve">
     <value>O Valor da transação deve ser maior que zero</value>
   </data>
-  <data name="TRANSACTION_INSUFICIENT_BALANCE_FOR_DEBIT" xml:space="preserve">
+  <data name="TRANSACTION_INSUFICIENT_BALANCE" xml:space="preserve">
     <value>Você não possui saldo suficiente para realizar esta transação</value>
+  </data>
+  <data name="TRANSACTION_TRANSFER_SAME_ACCOUNT_INVALID" xml:space="preserve">
+    <value>Você não pode efetuar uma transferência para sua própria conta</value>
   </data>
 </root>

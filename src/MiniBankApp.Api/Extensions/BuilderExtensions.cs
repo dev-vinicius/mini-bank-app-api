@@ -9,6 +9,8 @@ using MiniBankApp.Application.UseCases.Transactions.Debit;
 using MiniBankApp.Application.UseCases.Transactions.Debit.Contracts;
 using MiniBankApp.Application.UseCases.Transactions.History;
 using MiniBankApp.Application.UseCases.Transactions.History.Contracts;
+using MiniBankApp.Application.UseCases.Transactions.Transfer;
+using MiniBankApp.Application.UseCases.Transactions.Transfer.Contracts;
 
 namespace MiniBankApp.Api.Extensions
 {
@@ -27,6 +29,7 @@ namespace MiniBankApp.Api.Extensions
             builder.Services.AddScoped<ITransactionCreditUseCase, TransactionCreditUseCase>();
             builder.Services.AddScoped<ITransactionDebitUseCase, TransactionDeditUseCase>();
             builder.Services.AddScoped<ITransactionHistoryUseCase, TransactionHistoryUseCase>();
+            builder.Services.AddScoped<ITransactionTransferUseCase, TransactionTransferUseCase>();
         }
     }
 }

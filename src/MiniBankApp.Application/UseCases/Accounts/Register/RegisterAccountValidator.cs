@@ -15,7 +15,7 @@ namespace MiniBankApp.Application.UseCases.Accounts.Register
                 .WithMessage(ResourceErrorMessages.ACCOUNT_NAME_INVALID);
 
             RuleFor(req => req.Balance)
-                .GreaterThan(0)
+                .GreaterThanOrEqualTo(0)
                 .WithMessage(ResourceErrorMessages.ACCOUNT_BALANCE_INVALID);
         }
     }
