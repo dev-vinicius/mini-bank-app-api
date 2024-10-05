@@ -17,12 +17,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniBankApp.Exception", "sr
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MiniBankApp.Infrastructure", "src\MiniBankApp.Infrastructure\MiniBankApp.Infrastructure.csproj", "{0C377701-D851-4D40-ACF8-01FF3FAC409A}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docker", "docker", "{83A3829B-EC23-49F6-9C6B-2F74EC1E635E}"
-	ProjectSection(SolutionItems) = preProject
-		create.sql = create.sql
-		docker-compose.yaml = docker-compose.yaml
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

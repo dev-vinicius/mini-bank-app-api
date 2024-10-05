@@ -1,14 +1,16 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using MiniBankApp.Application.UseCases.Accounts.GetById;
-using MiniBankApp.Application.UseCases.Accounts.Register;
-using MiniBankApp.Application.UseCases.Transactions.Credit;
-using MiniBankApp.Application.UseCases.Transactions.Debit;
+using MiniBankApp.Application.UseCases.Accounts.GetById.Contracts;
+using MiniBankApp.Application.UseCases.Accounts.Register.Contracts;
+using MiniBankApp.Application.UseCases.Transactions.Credit.Contracts;
+using MiniBankApp.Application.UseCases.Transactions.Debit.Contracts;
+using MiniBankApp.Application.UseCases.Transactions.History.Contracts;
 using MiniBankApp.Infrastructure.DataAccess;
 using MiniBankApp.Infrastructure.UseCases.Accounts.GetById;
 using MiniBankApp.Infrastructure.UseCases.Accounts.Register;
 using MiniBankApp.Infrastructure.UseCases.Transactions.Credit;
 using MiniBankApp.Infrastructure.UseCases.Transactions.Debit;
+using MiniBankApp.Infrastructure.UseCases.Transactions.History;
 
 namespace MiniBankApp.Infrastructure.Extensions
 {
@@ -21,6 +23,7 @@ namespace MiniBankApp.Infrastructure.Extensions
             builder.Services.AddScoped<IRegisterAccountRepository, RegisterAccountRepository>();
             builder.Services.AddScoped<ITransactionCreditRepository, TransactionCreditRepository>();
             builder.Services.AddScoped<ITransactionDebitRepository, TransactionDebitRepository>();
+            builder.Services.AddScoped<ITransactionHistoryRepository, TransactionHistoryRepository>();
         }
     }
 }

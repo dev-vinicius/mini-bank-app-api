@@ -1,4 +1,4 @@
-﻿using MiniBankApp.Application.UseCases.Accounts.GetById;
+﻿using MiniBankApp.Application.UseCases.Accounts.GetById.Contracts;
 using MiniBankApp.Domain.Entities;
 using MiniBankApp.Infrastructure.DataAccess;
 

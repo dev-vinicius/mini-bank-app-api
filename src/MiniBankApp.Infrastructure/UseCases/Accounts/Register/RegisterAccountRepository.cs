@@ -1,4 +1,4 @@
-﻿using MiniBankApp.Application.UseCases.Accounts.Register;
+﻿using MiniBankApp.Application.UseCases.Accounts.Register.Contracts;
 using MiniBankApp.Domain.Entities;
 using MiniBankApp.Infrastructure.DataAccess;
 

@@ -1,4 +1,4 @@
-﻿using MiniBankApp.Application.UseCases.Transactions.Credit;
+﻿using MiniBankApp.Application.UseCases.Transactions.Credit.Contracts;
 using MiniBankApp.Domain.Entities;
 using MiniBankApp.Infrastructure.DataAccess;
 

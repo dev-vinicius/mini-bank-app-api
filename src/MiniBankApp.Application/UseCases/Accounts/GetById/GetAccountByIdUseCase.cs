@@ -1,10 +1,11 @@
-﻿using MiniBankApp.Communication.Responses.Account;
+﻿using MiniBankApp.Application.UseCases.Accounts.GetById.Contracts;
+using MiniBankApp.Communication.Responses.Account;
 using MiniBankApp.Exception;
 using MiniBankApp.Exception.ExceptionBase;
 
 namespace MiniBankApp.Application.UseCases.Accounts.GetById
 {
-    public class GetAccountByIdUseCase
+    public class GetAccountByIdUseCase : IGetAccountByIdUseCase
     {
         private readonly IGetAccountByIdRepository _repository;
         public GetAccountByIdUseCase(IGetAccountByIdRepository repository)

@@ -1,6 +1,3 @@
-using System;
-using System.ComponentModel.DataAnnotations;
-
 namespace MiniBankApp.Domain.Enums;
 
 public enum OperationType

@@ -1,4 +1,5 @@
-﻿using MiniBankApp.Communication.Requests.Transaction;
+﻿using MiniBankApp.Application.UseCases.Transactions.Debit.Contracts;
+using MiniBankApp.Communication.Requests.Transaction;
 using MiniBankApp.Communication.Responses.Transaction;
 using MiniBankApp.Domain.Entities;
 using MiniBankApp.Exception;
@@ -6,7 +7,7 @@ using MiniBankApp.Exception.ExceptionBase;
 
 namespace MiniBankApp.Application.UseCases.Transactions.Debit
 {
-    public class TransactionDeditUseCase
+    public class TransactionDeditUseCase : ITransactionDebitUseCase
     {
         private readonly ITransactionDebitRepository _repository;
         public TransactionDeditUseCase(ITransactionDebitRepository repository)

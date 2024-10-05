@@ -1,4 +1,4 @@
-﻿using MiniBankApp.Application.UseCases.Transactions.Debit;
+﻿using MiniBankApp.Application.UseCases.Transactions.Debit.Contracts;
 using MiniBankApp.Domain.Entities;
 using MiniBankApp.Infrastructure.DataAccess;
 

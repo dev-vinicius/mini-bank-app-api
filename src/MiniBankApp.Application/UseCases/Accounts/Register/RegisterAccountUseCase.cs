@@ -1,3 +1,4 @@
+using MiniBankApp.Application.UseCases.Accounts.Register.Contracts;
 using MiniBankApp.Communication.Requests.Account;
 using MiniBankApp.Communication.Responses.Account;
 using MiniBankApp.Domain.Entities;
@@ -5,7 +6,7 @@ using MiniBankApp.Exception.ExceptionBase;
 
 namespace MiniBankApp.Application.UseCases.Accounts.Register;
 
-public class RegisterAccountUseCase
+public class RegisterAccountUseCase : IRegisterAccountUseCase
 {
     private readonly IRegisterAccountRepository _repository;
     public RegisterAccountUseCase(IRegisterAccountRepository repository)

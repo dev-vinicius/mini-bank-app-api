@@ -1,4 +1,5 @@
-﻿using MiniBankApp.Communication.Requests.Transaction;
+﻿using MiniBankApp.Application.UseCases.Transactions.Credit.Contracts;
+using MiniBankApp.Communication.Requests.Transaction;
 using MiniBankApp.Communication.Responses.Transaction;
 using MiniBankApp.Domain.Entities;
 using MiniBankApp.Exception;
@@ -6,7 +7,7 @@ using MiniBankApp.Exception.ExceptionBase;
 
 namespace MiniBankApp.Application.UseCases.Transactions.Credit
 {
-    public class TransactionCreditUseCase
+    public class TransactionCreditUseCase : ITransactionCreditUseCase
     {
         private readonly ITransactionCreditRepository _repository;
         public TransactionCreditUseCase(ITransactionCreditRepository repository) 

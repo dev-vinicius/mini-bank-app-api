@@ -8,6 +8,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.AddConfiguration();
+builder.AddUseCases();
+
 builder.Services.AddMvc(options =>
     options.Filters.Add(typeof(ExceptionFilter)));
 
