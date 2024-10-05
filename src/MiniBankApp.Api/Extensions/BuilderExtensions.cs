@@ -1,4 +1,6 @@
 ﻿using MiniBankApp.Application.Configuration;
+using MiniBankApp.Application.UseCases.Accounts.GetAll;
+using MiniBankApp.Application.UseCases.Accounts.GetAll.Contracts;
 using MiniBankApp.Application.UseCases.Accounts.GetById;
 using MiniBankApp.Application.UseCases.Accounts.GetById.Contracts;
 using MiniBankApp.Application.UseCases.Accounts.Register;
@@ -30,6 +32,7 @@ namespace MiniBankApp.Api.Extensions
             builder.Services.AddScoped<ITransactionDebitUseCase, TransactionDeditUseCase>();
             builder.Services.AddScoped<ITransactionHistoryUseCase, TransactionHistoryUseCase>();
             builder.Services.AddScoped<ITransactionTransferUseCase, TransactionTransferUseCase>();
+            builder.Services.AddScoped<IGetAllAccountsUseCase, GetAllAccountsUseCase>();
         }
     }
 }

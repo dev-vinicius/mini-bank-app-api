@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using MiniBankApp.Application.UseCases.Accounts.GetAll.Contracts;
 using MiniBankApp.Application.UseCases.Accounts.GetById.Contracts;
 using MiniBankApp.Application.UseCases.Accounts.Register.Contracts;
 using MiniBankApp.Communication.Requests.Account;
@@ -9,6 +10,13 @@ namespace MiniBankApp.Api.Controllers
     [ApiController]
     public class AccountsController : ControllerBase
     {
+        [HttpGet]
+        public IActionResult Accounts([FromServices] IGetAllAccountsUseCase useCase)
+        {
+            var result = useCase.Execute();
+            return Ok(result);
+        }
+
         [HttpGet("{id}")]
         public IActionResult Accounts(int id,
             [FromServices] IGetAccountByIdUseCase useCase)

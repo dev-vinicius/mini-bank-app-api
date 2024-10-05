@@ -21,7 +21,7 @@ public class RegisterAccountUseCase : IRegisterAccountUseCase
         var entity = new Account
         {
             Name = request.Name!,
-            Balance = request.Balance,
+            Balance = decimal.Zero,
             CreateDate = DateTime.Now,
             UpdateDate = DateTime.Now,
         };
