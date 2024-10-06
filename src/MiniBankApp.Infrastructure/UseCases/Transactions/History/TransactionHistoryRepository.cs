@@ -20,7 +20,8 @@ namespace MiniBankApp.Infrastructure.UseCases.Transactions.History
         public List<Transaction> GetTransactionsFromAccount(int accountId)
         {
             return _context.Transactions
-                .Where(t => t.OriginAccountId == accountId)
+                .Where(t => t.OriginAccountId == accountId || 
+                        (t.OperationType == Domain.Enums.OperationType.Transfer && t.DestinationAccountId == accountId))
                 .OrderByDescending(t => t.CreateDate)
                 .ToList();
         }

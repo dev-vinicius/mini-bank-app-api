@@ -31,7 +31,9 @@ namespace MiniBankApp.Application.UseCases.Transactions.History
                     {
                         Value = transaction.Value,
                         Date = transaction.CreateDate,
-                        OperationType = (OperationType)transaction.OperationType
+                        OperationType = (OperationType)transaction.OperationType,
+                        TransferRecieved = transaction.OperationType == Domain.Enums.OperationType.Transfer && 
+                                           transaction.DestinationAccountId == accountId,
                     });
                 }
             }

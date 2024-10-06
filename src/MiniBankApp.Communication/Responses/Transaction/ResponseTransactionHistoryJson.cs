@@ -10,6 +10,7 @@
         public decimal Value { get; set; }
         public OperationType OperationType { get; set; }
         public DateTime Date { get; set; }
+        public bool TransferRecieved { get; set; }
     }
 
     public enum OperationType
