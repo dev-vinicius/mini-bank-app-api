@@ -26,10 +26,10 @@ namespace MiniBankApp.Api.Controllers
         }
 
         [HttpPost]
-        public IActionResult RegisterAccount(RequestAccountRegisterJson request,
+        public async Task<IActionResult> RegisterAccount(RequestAccountRegisterJson request,
             [FromServices] IRegisterAccountUseCase useCase)
         {
-            var result = useCase.Execute(request);
+            var result = await useCase.Execute(request);
             return Created(string.Empty, result);
         }
     }

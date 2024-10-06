@@ -1,4 +1,6 @@
+using MiniBankApp.Application.Events;
 using MiniBankApp.Application.UseCases.Accounts.Register.Contracts;
+using MiniBankApp.Communication.Events.Accounts;
 using MiniBankApp.Communication.Requests.Account;
 using MiniBankApp.Communication.Responses.Account;
 using MiniBankApp.Domain.Entities;
@@ -9,12 +11,15 @@ namespace MiniBankApp.Application.UseCases.Accounts.Register;
 public class RegisterAccountUseCase : IRegisterAccountUseCase
 {
     private readonly IRegisterAccountRepository _repository;
-    public RegisterAccountUseCase(IRegisterAccountRepository repository)
+    private readonly IEventPublisher _eventPublisher;
+    public RegisterAccountUseCase(IRegisterAccountRepository repository, 
+        IEventPublisher eventPublisher)
     {
         _repository = repository;
+        _eventPublisher = eventPublisher;
     }
 
-    public ResponseAccountRegisterJson Execute(RequestAccountRegisterJson request)
+    public async Task<ResponseAccountRegisterJson> Execute(RequestAccountRegisterJson request)
     {
         Validate(request);
 
@@ -27,6 +32,9 @@ public class RegisterAccountUseCase : IRegisterAccountUseCase
         };
 
         _repository.Save(entity);
+
+        var eventData = new RegisterAccountEvent(entity.Id, entity.Name);
+        await _eventPublisher.PublishAsync(eventData);
 
         return new ResponseAccountRegisterJson
         {

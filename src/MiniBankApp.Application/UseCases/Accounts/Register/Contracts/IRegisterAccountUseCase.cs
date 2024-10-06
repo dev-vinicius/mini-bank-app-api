@@ -5,6 +5,6 @@ namespace MiniBankApp.Application.UseCases.Accounts.Register.Contracts
 {
     public interface IRegisterAccountUseCase
     {
-        public ResponseAccountRegisterJson Execute(RequestAccountRegisterJson request);
+        public Task<ResponseAccountRegisterJson> Execute(RequestAccountRegisterJson request);
     }
 }
