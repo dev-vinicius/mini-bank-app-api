@@ -5,6 +5,6 @@ namespace MiniBankApp.Application.UseCases.Transactions.Credit.Contracts
 {
     public interface ITransactionCreditUseCase
     {
-        public ResponseTransactionCreditJson Execute(int accountId, RequestTransactionCreditJson request);
+        public Task<ResponseTransactionCreditJson> Execute(int accountId, RequestTransactionCreditJson request);
     }
 }

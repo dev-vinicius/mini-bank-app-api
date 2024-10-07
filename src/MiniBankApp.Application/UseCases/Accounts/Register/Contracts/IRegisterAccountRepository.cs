@@ -4,6 +4,6 @@ namespace MiniBankApp.Application.UseCases.Accounts.Register.Contracts
 {
     public interface IRegisterAccountRepository
     {
-        public void Save(Account account);
+        public Task Save(Account account);
     }
 }

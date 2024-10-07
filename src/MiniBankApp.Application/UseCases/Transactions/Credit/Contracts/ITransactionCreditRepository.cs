@@ -4,8 +4,8 @@ namespace MiniBankApp.Application.UseCases.Transactions.Credit.Contracts
 {
     public interface ITransactionCreditRepository
     {
-        public Account? GetAccount(int accountId);
+        public Task<Account?> GetAccount(int accountId);
 
-        public void SaveTransactionAndUpdateAccountBalance(Transaction transaction, Account account);
+        public Task SaveTransactionAndUpdateAccountBalance(Transaction transaction, Account account);
     }
 }

@@ -1,4 +1,5 @@
-﻿using MiniBankApp.Application.UseCases.Transactions.History.Contracts;
+﻿using Microsoft.EntityFrameworkCore;
+using MiniBankApp.Application.UseCases.Transactions.History.Contracts;
 using MiniBankApp.Domain.Entities;
 using MiniBankApp.Infrastructure.DataAccess;
 
@@ -12,18 +13,18 @@ namespace MiniBankApp.Infrastructure.UseCases.Transactions.History
             _context = context;
         }
 
-        public Account? GetAccount(int accountId)
+        public async Task<Account?> GetAccount(int accountId)
         {
-            return _context.Accounts.FirstOrDefault(a => a.Id == accountId);
+            return await _context.Accounts.FirstOrDefaultAsync(a => a.Id == accountId);
         }
 
-        public List<Transaction> GetTransactionsFromAccount(int accountId)
+        public async Task<List<Transaction>> GetTransactionsFromAccount(int accountId)
         {
-            return _context.Transactions
+            return await _context.Transactions
                 .Where(t => t.OriginAccountId == accountId || 
                         (t.OperationType == Domain.Enums.OperationType.Transfer && t.DestinationAccountId == accountId))
                 .OrderByDescending(t => t.CreateDate)
-                .ToList();
+                .ToListAsync();
         }
     }
 }

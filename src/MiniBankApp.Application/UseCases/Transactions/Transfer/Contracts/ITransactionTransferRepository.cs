@@ -4,8 +4,8 @@ namespace MiniBankApp.Application.UseCases.Transactions.Transfer.Contracts
 {
     public interface ITransactionTransferRepository
     {
-        public Account? GetAccount(int accountId);
+        public Task<Account?> GetAccount(int accountId);
 
-        public void SaveTransactionAndUpdateAccountBalance(Transaction transaction, Account originAccount, Account destinationAccount);
+        public Task SaveTransactionAndUpdateAccountBalance(Transaction transaction, Account originAccount, Account destinationAccount);
     }
 }

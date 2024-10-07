@@ -1,4 +1,5 @@
-﻿using MiniBankApp.Application.UseCases.Transactions.Transfer.Contracts;
+﻿using Microsoft.EntityFrameworkCore;
+using MiniBankApp.Application.UseCases.Transactions.Transfer.Contracts;
 using MiniBankApp.Domain.Entities;
 using MiniBankApp.Infrastructure.DataAccess;
 
@@ -12,17 +13,17 @@ namespace MiniBankApp.Infrastructure.UseCases.Transactions.Transfer
             _context = context;
         }
 
-        public Account? GetAccount(int accountId)
+        public async Task<Account?> GetAccount(int accountId)
         {
-            return _context.Accounts.FirstOrDefault(a => a.Id == accountId);
+            return await _context.Accounts.FirstOrDefaultAsync(a => a.Id == accountId);
         }
 
-        public void SaveTransactionAndUpdateAccountBalance(Transaction transaction, Account originAccount, Account destinationAccount)
+        public async Task SaveTransactionAndUpdateAccountBalance(Transaction transaction, Account originAccount, Account destinationAccount)
         {
             try
             {
-                _context.Database.BeginTransaction();
-                _context.Transactions.Add(transaction);
+                await _context.Database.BeginTransactionAsync();
+                await _context.Transactions.AddAsync(transaction);
 
                 originAccount.Balance -= transaction.Value;
                 originAccount.UpdateDate = DateTime.Now;
@@ -32,13 +33,13 @@ namespace MiniBankApp.Infrastructure.UseCases.Transactions.Transfer
                 destinationAccount.UpdateDate = DateTime.Now;
                 _context.Attach(destinationAccount);
 
-                _context.SaveChanges();
-                _context.Database.CommitTransaction();
+                await _context.SaveChangesAsync();
+                await _context.Database.CommitTransactionAsync();
             }
             catch (System.Exception)
             {
                 if (_context.Database.CurrentTransaction != null)
-                    _context.Database.RollbackTransaction();
+                    await _context.Database.RollbackTransactionAsync();
 
                 throw;
             }

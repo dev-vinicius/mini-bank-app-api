@@ -13,9 +13,9 @@ namespace MiniBankApp.Application.UseCases.Accounts.GetById
             _repository = repository;
         }
 
-        public ResponseGetAccountByIdJson Execute(int id)
+        public async Task<ResponseGetAccountByIdJson> Execute(int id)
         {
-            var account = _repository.GetAccountById(id);
+            var account = await _repository.GetAccountById(id);
 
             return account == null
                 ? throw new ErrorOnNotFoundRecordException(ResourceErrorMessages.ACCOUNT_NOT_FOUND)

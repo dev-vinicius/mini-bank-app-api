@@ -11,10 +11,10 @@ namespace MiniBankApp.Infrastructure.UseCases.Accounts.Register
         {
             _context = context;
         }
-        public void Save(Account account)
+        public async Task Save(Account account)
         {
-            _context.Accounts.Add(account);
-            _context.SaveChanges();
+            await _context.Accounts.AddAsync(account);
+            await _context.SaveChangesAsync();
         }
     }
 }

@@ -11,11 +11,11 @@ namespace MiniBankApp.Application.UseCases.Accounts.GetAll
             _repository = repository;
         }
 
-        public ResponseAccountGetAllJson Execute()
+        public async Task<ResponseAccountGetAllJson> Execute()
         {
             var result = new ResponseAccountGetAllJson();
 
-            var accounts = _repository.GetAll();
+            var accounts = await _repository.GetAll();
 
             if (accounts != null && accounts.Count > 0)
             {

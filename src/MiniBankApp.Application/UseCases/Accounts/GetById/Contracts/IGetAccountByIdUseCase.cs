@@ -4,6 +4,6 @@ namespace MiniBankApp.Application.UseCases.Accounts.GetById.Contracts
 {
     public interface IGetAccountByIdUseCase
     {
-        public ResponseGetAccountByIdJson Execute(int id);
+        public Task<ResponseGetAccountByIdJson> Execute(int id);
     }
 }

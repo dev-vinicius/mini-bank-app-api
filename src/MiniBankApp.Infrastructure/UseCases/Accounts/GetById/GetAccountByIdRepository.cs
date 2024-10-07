@@ -1,4 +1,5 @@
-﻿using MiniBankApp.Application.UseCases.Accounts.GetById.Contracts;
+﻿using Microsoft.EntityFrameworkCore;
+using MiniBankApp.Application.UseCases.Accounts.GetById.Contracts;
 using MiniBankApp.Domain.Entities;
 using MiniBankApp.Infrastructure.DataAccess;
 
@@ -11,9 +12,9 @@ namespace MiniBankApp.Infrastructure.UseCases.Accounts.GetById
         {
             _context = context;
         }
-        public Account? GetAccountById(int id)
+        public Task<Account?> GetAccountById(int id)
         {
-            return _context.Accounts.FirstOrDefault(a => a.Id == id);
+            return _context.Accounts.FirstOrDefaultAsync(a => a.Id == id);
         }
     }
 }

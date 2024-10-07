@@ -5,6 +5,6 @@ namespace MiniBankApp.Application.UseCases.Transactions.Transfer.Contracts
 {
     public interface ITransactionTransferUseCase
     {
-        public ResponseTransactionTransferJson Execute(int accountId, RequestTransactionTransferJson request);
+        public Task<ResponseTransactionTransferJson> Execute(int accountId, RequestTransactionTransferJson request);
     }
 }

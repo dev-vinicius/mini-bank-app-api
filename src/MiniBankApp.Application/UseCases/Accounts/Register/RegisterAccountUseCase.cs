@@ -31,7 +31,7 @@ public class RegisterAccountUseCase : IRegisterAccountUseCase
             UpdateDate = DateTime.Now,
         };
 
-        _repository.Save(entity);
+        await _repository.Save(entity);
 
         var eventData = new RegisterAccountEvent(entity.Id, entity.Name);
         await _eventPublisher.PublishAsync(eventData);

@@ -1,4 +1,5 @@
-﻿using MiniBankApp.Application.UseCases.Accounts.GetAll.Contracts;
+﻿using Microsoft.EntityFrameworkCore;
+using MiniBankApp.Application.UseCases.Accounts.GetAll.Contracts;
 using MiniBankApp.Domain.Entities;
 using MiniBankApp.Infrastructure.DataAccess;
 
@@ -11,9 +12,9 @@ namespace MiniBankApp.Infrastructure.UseCases.Accounts.GetAll
         {
             _context = context;
         }
-        public List<Account> GetAll()
+        public async Task<List<Account>> GetAll()
         {
-            return _context.Accounts.ToList();
+            return await _context.Accounts.ToListAsync();
         }
     }
 }

@@ -5,6 +5,6 @@ namespace MiniBankApp.Application.UseCases.Transactions.Debit.Contracts
 {
     public interface ITransactionDebitUseCase
     {
-        public ResponseTransactionDebitJson Execute(int accountId, RequestTransactionDebitJson request);
+        public Task<ResponseTransactionDebitJson> Execute(int accountId, RequestTransactionDebitJson request);
     }
 }

@@ -13,14 +13,14 @@ namespace MiniBankApp.Application.UseCases.Transactions.History
             _repository = repository;
         }
 
-        public ResponseTransactionHistoryJson Execute(int accountId)
+        public async Task<ResponseTransactionHistoryJson> Execute(int accountId)
         {
-            var account = _repository.GetAccount(accountId);
+            var account = await _repository.GetAccount(accountId);
 
             if (account == null)
                 throw new ErrorOnNotFoundRecordException(ResourceErrorMessages.ACCOUNT_NOT_FOUND);
 
-            var transactions = _repository.GetTransactionsFromAccount(accountId);
+            var transactions = await _repository.GetTransactionsFromAccount(accountId);
             var response = new ResponseTransactionHistoryJson();
 
             if (transactions != null && transactions.Count > 0)

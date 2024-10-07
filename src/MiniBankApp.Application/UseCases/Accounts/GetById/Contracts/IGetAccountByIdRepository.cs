@@ -4,6 +4,6 @@ namespace MiniBankApp.Application.UseCases.Accounts.GetById.Contracts
 {
     public interface IGetAccountByIdRepository
     {
-        public Account? GetAccountById(int id);
+        public Task<Account?> GetAccountById(int id);
     }
 }
