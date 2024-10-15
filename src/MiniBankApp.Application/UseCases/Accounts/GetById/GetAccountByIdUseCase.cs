@@ -1,5 +1,6 @@
 ﻿using MiniBankApp.Application.UseCases.Accounts.GetById.Contracts;
 using MiniBankApp.Communication.Responses.Account;
+using MiniBankApp.Domain.Repositories;
 using MiniBankApp.Exception;
 using MiniBankApp.Exception.ExceptionBase;
 

@@ -1,5 +1,6 @@
 using MiniBankApp.Api.Extensions;
 using MiniBankApp.Api.Filters;
+using MiniBankApp.Application.Extensions;
 using MiniBankApp.Infrastructure.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,11 +9,11 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.AddConfiguration();
-builder.AddUseCases();
 
 builder.Services.AddMvc(options =>
     options.Filters.Add(typeof(ExceptionFilter)));
 
+builder.RegisterApplicationServices();
 builder.RegisterInfrastructureServices();
 
 var app = builder.Build();

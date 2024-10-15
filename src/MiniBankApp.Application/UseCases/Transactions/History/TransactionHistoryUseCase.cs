@@ -2,6 +2,7 @@
 using MiniBankApp.Communication.Responses.Transaction;
 using MiniBankApp.Exception.ExceptionBase;
 using MiniBankApp.Exception;
+using MiniBankApp.Domain.Repositories;
 
 namespace MiniBankApp.Application.UseCases.Transactions.History
 {

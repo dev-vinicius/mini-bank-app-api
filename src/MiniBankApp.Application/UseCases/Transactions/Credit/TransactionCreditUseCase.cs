@@ -1,9 +1,10 @@
-﻿using MiniBankApp.Application.Events;
-using MiniBankApp.Application.UseCases.Transactions.Credit.Contracts;
-using MiniBankApp.Communication.Events.Transactions;
+﻿using MiniBankApp.Application.UseCases.Transactions.Credit.Contracts;
 using MiniBankApp.Communication.Requests.Transaction;
 using MiniBankApp.Communication.Responses.Transaction;
 using MiniBankApp.Domain.Entities;
+using MiniBankApp.Domain.Events.Contracts;
+using MiniBankApp.Domain.Events.EventData.Transactions;
+using MiniBankApp.Domain.Repositories;
 using MiniBankApp.Exception;
 using MiniBankApp.Exception.ExceptionBase;
 
@@ -12,11 +13,12 @@ namespace MiniBankApp.Application.UseCases.Transactions.Credit
     public class TransactionCreditUseCase : ITransactionCreditUseCase
     {
         private readonly ITransactionCreditRepository _repository;
-        private readonly IEventPublisher _eventPublisher;
-        public TransactionCreditUseCase(ITransactionCreditRepository repository, IEventPublisher eventPublisher) 
+        private readonly IEventDispatcher _eventDispatcher;
+        public TransactionCreditUseCase(ITransactionCreditRepository repository, 
+            IEventDispatcher eventDispatcher) 
         { 
             _repository = repository;
-            _eventPublisher = eventPublisher;
+            _eventDispatcher = eventDispatcher;
         }
 
         public async Task<ResponseTransactionCreditJson> Execute(int accountId, RequestTransactionCreditJson request)
@@ -42,10 +44,10 @@ namespace MiniBankApp.Application.UseCases.Transactions.Credit
             var transactionEvent = new TransactionEvent(transaction.Id,
                 transaction.OriginAccountId,
                 transaction.Value,
-                (OperationType)transaction.OperationType,
+                transaction.OperationType,
                 transaction.DestinationAccountId,
                 transaction.CreateDate);
-            await _eventPublisher.PublishAsync(transactionEvent);
+            await _eventDispatcher.DispatchAsync(transactionEvent);
 
             return new ResponseTransactionCreditJson
             {

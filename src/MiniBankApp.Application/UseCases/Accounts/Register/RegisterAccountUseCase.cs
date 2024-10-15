@@ -1,9 +1,10 @@
-using MiniBankApp.Application.Events;
 using MiniBankApp.Application.UseCases.Accounts.Register.Contracts;
-using MiniBankApp.Communication.Events.Accounts;
 using MiniBankApp.Communication.Requests.Account;
 using MiniBankApp.Communication.Responses.Account;
 using MiniBankApp.Domain.Entities;
+using MiniBankApp.Domain.Events.Contracts;
+using MiniBankApp.Domain.Events.EventData.Accounts;
+using MiniBankApp.Domain.Repositories;
 using MiniBankApp.Exception.ExceptionBase;
 
 namespace MiniBankApp.Application.UseCases.Accounts.Register;
@@ -11,12 +12,12 @@ namespace MiniBankApp.Application.UseCases.Accounts.Register;
 public class RegisterAccountUseCase : IRegisterAccountUseCase
 {
     private readonly IRegisterAccountRepository _repository;
-    private readonly IEventPublisher _eventPublisher;
-    public RegisterAccountUseCase(IRegisterAccountRepository repository, 
-        IEventPublisher eventPublisher)
+    private readonly IEventDispatcher _eventDispatcher;
+    public RegisterAccountUseCase(IRegisterAccountRepository repository,
+        IEventDispatcher eventDispatcher)
     {
         _repository = repository;
-        _eventPublisher = eventPublisher;
+        _eventDispatcher = eventDispatcher;
     }
 
     public async Task<ResponseAccountRegisterJson> Execute(RequestAccountRegisterJson request)
@@ -34,7 +35,7 @@ public class RegisterAccountUseCase : IRegisterAccountUseCase
         await _repository.Save(entity);
 
         var eventData = new RegisterAccountEvent(entity.Id, entity.Name);
-        await _eventPublisher.PublishAsync(eventData);
+        await _eventDispatcher.DispatchAsync(eventData);
 
         return new ResponseAccountRegisterJson
         {

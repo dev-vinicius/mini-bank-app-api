@@ -1,22 +1,16 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.DependencyInjection;
-using MiniBankApp.Application.Events;
-using MiniBankApp.Application.UseCases.Accounts.GetAll.Contracts;
-using MiniBankApp.Application.UseCases.Accounts.GetById.Contracts;
-using MiniBankApp.Application.UseCases.Accounts.Register.Contracts;
-using MiniBankApp.Application.UseCases.Transactions.Credit.Contracts;
-using MiniBankApp.Application.UseCases.Transactions.Debit.Contracts;
-using MiniBankApp.Application.UseCases.Transactions.History.Contracts;
-using MiniBankApp.Application.UseCases.Transactions.Transfer.Contracts;
+using MiniBankApp.Domain.Events.Contracts;
+using MiniBankApp.Domain.Repositories;
 using MiniBankApp.Infrastructure.DataAccess;
 using MiniBankApp.Infrastructure.Events;
-using MiniBankApp.Infrastructure.UseCases.Accounts.GetAll;
-using MiniBankApp.Infrastructure.UseCases.Accounts.GetById;
-using MiniBankApp.Infrastructure.UseCases.Accounts.Register;
-using MiniBankApp.Infrastructure.UseCases.Transactions.Credit;
-using MiniBankApp.Infrastructure.UseCases.Transactions.Debit;
-using MiniBankApp.Infrastructure.UseCases.Transactions.History;
-using MiniBankApp.Infrastructure.UseCases.Transactions.Transfer;
+using MiniBankApp.Infrastructure.Repositories.Accounts.GetAll;
+using MiniBankApp.Infrastructure.Repositories.Accounts.GetById;
+using MiniBankApp.Infrastructure.Repositories.Accounts.Register;
+using MiniBankApp.Infrastructure.Repositories.Transactions.Credit;
+using MiniBankApp.Infrastructure.Repositories.Transactions.Debit;
+using MiniBankApp.Infrastructure.Repositories.Transactions.History;
+using MiniBankApp.Infrastructure.Repositories.Transactions.Transfer;
 
 namespace MiniBankApp.Infrastructure.Extensions
 {
@@ -36,7 +30,7 @@ namespace MiniBankApp.Infrastructure.Extensions
 
 
             //events
-            builder.Services.AddScoped<IEventPublisher, AwsEventPublisher>();
+            builder.Services.AddScoped<IEventDispatcher, EventDispatcher>();
         }
     }
 }

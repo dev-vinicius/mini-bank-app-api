@@ -1,5 +1,6 @@
 ﻿using MiniBankApp.Application.UseCases.Accounts.GetAll.Contracts;
 using MiniBankApp.Communication.Responses.Account;
+using MiniBankApp.Domain.Repositories;
 
 namespace MiniBankApp.Application.UseCases.Accounts.GetAll
 {
