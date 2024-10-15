@@ -1,7 +1,7 @@
 ﻿using MiniBankApp.Domain.Events.Contracts;
 using MiniBankApp.Domain.Events.EventData.Accounts;
 using MiniBankApp.Domain.Events.EventData.Transactions;
-using MiniBankApp.Infrastructure.Events.Implementations;
+using MiniBankApp.Infrastructure.Events.Handlers;
 
 namespace MiniBankApp.Infrastructure.Events
 {
@@ -13,8 +13,8 @@ namespace MiniBankApp.Infrastructure.Events
         {
             _eventHandlers = new Dictionary<Type, object>
         {
-            { typeof(RegisterAccountEvent), new AccountCreatedEventHandler() },
-            { typeof(TransactionEvent), new TransactionProcessedEventHandler() }
+            { typeof(RegisterAccountEvent), new RegisterAccountEventHandler() },
+            { typeof(TransactionEvent), new TransactionEventHandler() }
         };
         }
 
