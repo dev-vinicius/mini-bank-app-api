@@ -10,20 +10,18 @@ using MiniBankApp.Exception.ExceptionBase;
 
 namespace MiniBankApp.Application.UseCases.Transactions.Debit
 {
-    public class TransactionDeditUseCase : ITransactionDebitUseCase
+    public class TransactionDeditUseCase(
+        ITransactionRepository transactionRepository,
+        IAccountRepository accountRepository,
+        IUnityOfWork unityOfWork,
+        IEventDispatcher eventDispatcher)
+        : ITransactionDebitUseCase
     {
-        private readonly ITransactionDebitRepository _repository;
-        private readonly IEventDispatcher _eventDispatcher;
-        public TransactionDeditUseCase(ITransactionDebitRepository repository, IEventDispatcher eventDispatcher)
-        {
-            _repository = repository;
-            _eventDispatcher = eventDispatcher;
-        }
         public async Task<ResponseTransactionDebitJson> Execute(int accountId, RequestTransactionDebitJson request)
         {
             Validate(request);
 
-            var account = await _repository.GetAccount(accountId);
+            var account = await accountRepository.GetByIdAsync(accountId);
 
             if (account == null)
                 throw new ErrorOnNotFoundRecordException(ResourceErrorMessages.ACCOUNT_NOT_FOUND);
@@ -39,8 +37,13 @@ namespace MiniBankApp.Application.UseCases.Transactions.Debit
                 CreateDate = DateTime.Now,
                 UpdateDate = DateTime.Now,
             };
-
-            await _repository.SaveTransactionAndUpdateAccountBalance(transaction, account);
+            await transactionRepository.SaveAsync(transaction);
+            
+            account.Balance -= request.Value;
+            account.UpdateDate = DateTime.Now;
+            await accountRepository.UpdateAsync(account);
+            
+            await unityOfWork.CommitAsync();
 
             var transactionEvent = new TransactionEvent(transaction.Id,
                 transaction.OriginAccountId,
@@ -48,7 +51,7 @@ namespace MiniBankApp.Application.UseCases.Transactions.Debit
                 transaction.OperationType,
                 transaction.DestinationAccountId,
                 transaction.CreateDate);
-            await _eventDispatcher.DispatchAsync(transactionEvent);
+            await eventDispatcher.DispatchAsync(transactionEvent);
 
             return new ResponseTransactionDebitJson
             {

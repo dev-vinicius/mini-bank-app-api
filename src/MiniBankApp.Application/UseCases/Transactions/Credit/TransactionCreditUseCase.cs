@@ -10,23 +10,18 @@ using MiniBankApp.Exception.ExceptionBase;
 
 namespace MiniBankApp.Application.UseCases.Transactions.Credit
 {
-    public class TransactionCreditUseCase : ITransactionCreditUseCase
+    public class TransactionCreditUseCase(
+        ITransactionRepository transactionRepository,
+        IAccountRepository accountRepository,
+        IUnityOfWork unityOfWork,
+        IEventDispatcher eventDispatcher)
+        : ITransactionCreditUseCase
     {
-        private readonly ITransactionCreditRepository _repository;
-        private readonly IEventDispatcher _eventDispatcher;
-        public TransactionCreditUseCase(ITransactionCreditRepository repository, 
-            IEventDispatcher eventDispatcher) 
-        { 
-            _repository = repository;
-            _eventDispatcher = eventDispatcher;
-        }
-
         public async Task<ResponseTransactionCreditJson> Execute(int accountId, RequestTransactionCreditJson request)
         {
             Validate(request);
 
-            var account = await _repository.GetAccount(accountId);
-
+            var account = await accountRepository.GetByIdAsync(accountId);
             if (account == null)
                 throw new ErrorOnNotFoundRecordException(ResourceErrorMessages.ACCOUNT_NOT_FOUND);
 
@@ -38,8 +33,13 @@ namespace MiniBankApp.Application.UseCases.Transactions.Credit
                 CreateDate = DateTime.Now,
                 UpdateDate = DateTime.Now,
             };
-
-            await _repository.SaveTransactionAndUpdateAccountBalance(transaction, account);
+            await transactionRepository.SaveAsync(transaction);
+            
+            account.Balance += request.Value;
+            account.UpdateDate = DateTime.Now;
+            await accountRepository.UpdateAsync(account);
+            
+            await unityOfWork.CommitAsync();
 
             var transactionEvent = new TransactionEvent(transaction.Id,
                 transaction.OriginAccountId,
@@ -47,7 +47,7 @@ namespace MiniBankApp.Application.UseCases.Transactions.Credit
                 transaction.OperationType,
                 transaction.DestinationAccountId,
                 transaction.CreateDate);
-            await _eventDispatcher.DispatchAsync(transactionEvent);
+            await eventDispatcher.DispatchAsync(transactionEvent);
 
             return new ResponseTransactionCreditJson
             {

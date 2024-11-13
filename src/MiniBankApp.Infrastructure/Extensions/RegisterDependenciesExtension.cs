@@ -4,13 +4,7 @@ using MiniBankApp.Domain.Events.Contracts;
 using MiniBankApp.Domain.Repositories;
 using MiniBankApp.Infrastructure.DataAccess;
 using MiniBankApp.Infrastructure.Events;
-using MiniBankApp.Infrastructure.Repositories.Accounts.GetAll;
-using MiniBankApp.Infrastructure.Repositories.Accounts.GetById;
-using MiniBankApp.Infrastructure.Repositories.Accounts.Register;
-using MiniBankApp.Infrastructure.Repositories.Transactions.Credit;
-using MiniBankApp.Infrastructure.Repositories.Transactions.Debit;
-using MiniBankApp.Infrastructure.Repositories.Transactions.History;
-using MiniBankApp.Infrastructure.Repositories.Transactions.Transfer;
+using MiniBankApp.Infrastructure.Repositories;
 
 namespace MiniBankApp.Infrastructure.Extensions
 {
@@ -20,14 +14,9 @@ namespace MiniBankApp.Infrastructure.Extensions
         {
             //database
             builder.Services.AddDbContext<MiniBankAppDbContext>();
-            builder.Services.AddScoped<IGetAccountByIdRepository, GetAccountByIdRepository>();
-            builder.Services.AddScoped<IRegisterAccountRepository, RegisterAccountRepository>();
-            builder.Services.AddScoped<ITransactionCreditRepository, TransactionCreditRepository>();
-            builder.Services.AddScoped<ITransactionDebitRepository, TransactionDebitRepository>();
-            builder.Services.AddScoped<ITransactionHistoryRepository, TransactionHistoryRepository>();
-            builder.Services.AddScoped<ITransactionTransferRepository, TransactionTransferRepository>();
-            builder.Services.AddScoped<IGetAllAccountsRepository, GetAllAccountsRepository>();
-
+            builder.Services.AddScoped<IUnityOfWork, UnityOfWork>();
+            builder.Services.AddScoped<IAccountRepository, AccountRepository>();
+            builder.Services.AddScoped<ITransactionRepository, TransactionRepository>();
 
             //events
             builder.Services.AddScoped<IEventDispatcher, EventDispatcher>();

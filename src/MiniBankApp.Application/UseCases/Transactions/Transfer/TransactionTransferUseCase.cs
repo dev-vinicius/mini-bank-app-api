@@ -10,27 +10,24 @@ using MiniBankApp.Exception.ExceptionBase;
 
 namespace MiniBankApp.Application.UseCases.Transactions.Transfer
 {
-    public class TransactionTransferUseCase : ITransactionTransferUseCase
+    public class TransactionTransferUseCase(
+        ITransactionRepository transactionRepository,
+        IAccountRepository accountRepository,
+        IUnityOfWork unityOfWork,
+        IEventDispatcher eventDispatcher) : ITransactionTransferUseCase
     {
-        private readonly ITransactionTransferRepository _repository;
-        private readonly IEventDispatcher _eventDispatcher;
-        public TransactionTransferUseCase(ITransactionTransferRepository repository, 
-            IEventDispatcher eventDispatcher)
-        {
-            _repository = repository;
-            _eventDispatcher = eventDispatcher;
-        }
-
-        public async Task<ResponseTransactionTransferJson> Execute(int accountId, RequestTransactionTransferJson request)
+        public async Task<ResponseTransactionTransferJson> Execute(int accountId,
+            RequestTransactionTransferJson request)
         {
             Validate(request);
 
             if (accountId == request.DestinationAccountId)
-                throw new ErrorOnNotFoundRecordException(ResourceErrorMessages.TRANSACTION_TRANSFER_SAME_ACCOUNT_INVALID);
+                throw new ErrorOnNotFoundRecordException(
+                    ResourceErrorMessages.TRANSACTION_TRANSFER_SAME_ACCOUNT_INVALID);
 
-            var originAccount = await _repository.GetAccount(accountId);
-            var destinationAccount = await _repository.GetAccount(request.DestinationAccountId);
-            
+            var originAccount = await accountRepository.GetByIdAsync(accountId);
+            var destinationAccount = await accountRepository.GetByIdAsync(request.DestinationAccountId);
+
             if (originAccount == null)
                 throw new ErrorOnNotFoundRecordException(ResourceErrorMessages.ACCOUNT_NOT_FOUND);
 
@@ -49,16 +46,25 @@ namespace MiniBankApp.Application.UseCases.Transactions.Transfer
                 CreateDate = DateTime.Now,
                 UpdateDate = DateTime.Now,
             };
+            await transactionRepository.SaveAsync(transaction);
 
-            await _repository.SaveTransactionAndUpdateAccountBalance(transaction, originAccount, destinationAccount);
-
+            originAccount.Balance -= request.Value;
+            originAccount.UpdateDate = DateTime.Now;
+            await accountRepository.UpdateAsync(originAccount);
+            
+            destinationAccount.Balance += request.Value;
+            destinationAccount.UpdateDate = DateTime.Now;
+            await accountRepository.UpdateAsync(destinationAccount);
+            
+            await unityOfWork.CommitAsync();
+            
             var transactionEvent = new TransactionEvent(transaction.Id,
                 transaction.OriginAccountId,
                 transaction.Value,
                 transaction.OperationType,
                 transaction.DestinationAccountId,
                 transaction.CreateDate);
-            await _eventDispatcher.DispatchAsync(transactionEvent);
+            await eventDispatcher.DispatchAsync(transactionEvent);
 
             return new ResponseTransactionTransferJson
             {

@@ -6,25 +6,20 @@ using MiniBankApp.Domain.Repositories;
 
 namespace MiniBankApp.Application.UseCases.Transactions.History
 {
-    public class TransactionHistoryUseCase : ITransactionHistoryUseCase
+    public class TransactionHistoryUseCase(ITransactionRepository transactionRepository, 
+        IAccountRepository accountRepository) : ITransactionHistoryUseCase
     {
-        private readonly ITransactionHistoryRepository _repository;
-        public TransactionHistoryUseCase(ITransactionHistoryRepository repository)
-        {
-            _repository = repository;
-        }
-
         public async Task<ResponseTransactionHistoryJson> Execute(int accountId)
         {
-            var account = await _repository.GetAccount(accountId);
+            var account = await accountRepository.GetByIdAsync(accountId);
 
             if (account == null)
                 throw new ErrorOnNotFoundRecordException(ResourceErrorMessages.ACCOUNT_NOT_FOUND);
 
-            var transactions = await _repository.GetTransactionsFromAccount(accountId);
+            var transactions = await transactionRepository.GetByAccountIdAsync(accountId);
             var response = new ResponseTransactionHistoryJson();
 
-            if (transactions != null && transactions.Count > 0)
+            if (transactions.Count > 0)
             {
                 foreach (var transaction in transactions)
                 {

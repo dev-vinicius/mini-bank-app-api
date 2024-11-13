@@ -9,17 +9,12 @@ using MiniBankApp.Exception.ExceptionBase;
 
 namespace MiniBankApp.Application.UseCases.Accounts.Register;
 
-public class RegisterAccountUseCase : IRegisterAccountUseCase
+public class RegisterAccountUseCase(
+    IAccountRepository repository,
+    IUnityOfWork unityOfWork,
+    IEventDispatcher eventDispatcher)
+    : IRegisterAccountUseCase
 {
-    private readonly IRegisterAccountRepository _repository;
-    private readonly IEventDispatcher _eventDispatcher;
-    public RegisterAccountUseCase(IRegisterAccountRepository repository,
-        IEventDispatcher eventDispatcher)
-    {
-        _repository = repository;
-        _eventDispatcher = eventDispatcher;
-    }
-
     public async Task<ResponseAccountRegisterJson> Execute(RequestAccountRegisterJson request)
     {
         Validate(request);
@@ -32,10 +27,12 @@ public class RegisterAccountUseCase : IRegisterAccountUseCase
             UpdateDate = DateTime.Now,
         };
 
-        await _repository.Save(entity);
+        await repository.SaveAsync(entity);
+
+        await unityOfWork.CommitAsync();
 
         var eventData = new RegisterAccountEvent(entity.Id, entity.Name);
-        await _eventDispatcher.DispatchAsync(eventData);
+        await eventDispatcher.DispatchAsync(eventData);
 
         return new ResponseAccountRegisterJson
         {
@@ -43,7 +40,7 @@ public class RegisterAccountUseCase : IRegisterAccountUseCase
         };
     }
 
-    private void Validate(RequestAccountRegisterJson request)
+    private static void Validate(RequestAccountRegisterJson request)
     {
         var validator = new RegisterAccountValidator();
         var result = validator.Validate(request);

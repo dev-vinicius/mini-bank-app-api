@@ -4,21 +4,15 @@ using MiniBankApp.Domain.Repositories;
 
 namespace MiniBankApp.Application.UseCases.Accounts.GetAll
 {
-    public class GetAllAccountsUseCase : IGetAllAccountsUseCase
+    public class GetAllAccountsUseCase(IAccountRepository repository) : IGetAllAccountsUseCase
     {
-        private readonly IGetAllAccountsRepository _repository;
-        public GetAllAccountsUseCase(IGetAllAccountsRepository repository)
-        {
-            _repository = repository;
-        }
-
         public async Task<ResponseAccountGetAllJson> Execute()
         {
             var result = new ResponseAccountGetAllJson();
 
-            var accounts = await _repository.GetAll();
+            var accounts = await repository.GetAllAsync();
 
-            if (accounts != null && accounts.Count > 0)
+            if (accounts.Count > 0)
             {
                 foreach (var account in accounts)
                 {
